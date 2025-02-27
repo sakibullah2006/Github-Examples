@@ -5,7 +5,7 @@ on:
     branches:
       - main
   issues:
-    types: [opened, edited, milestoned]
+    types: [opened, edited, milestoned, closed]
   pull_request:
     branches:
       - main
