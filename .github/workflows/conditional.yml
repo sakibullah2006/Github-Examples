@@ -14,5 +14,7 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             -  name: "greet user"
-               run: echo hey there, $GITHUB_ACTOR
+               run: |
+                echo hey there, $GITHUB_ACTOR
+                echo hey there, ${{github.repository_owner}}
             
