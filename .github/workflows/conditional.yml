@@ -9,9 +9,10 @@ on:
   pull_request:
     branches:
       - main
-      
+
 jobs:
   on-push:
+    if: github.event_name == 'push'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -19,12 +20,12 @@ jobs:
 
       # Step to run on push event
       - name: Run on push
-        if: github.event_name == 'push'
         run: |
             echo "push event made by $GITHUB_ACTOR at $(date)"
             echo cat "$(git log -n 1)"
 
   on-issue:
+    if: github.event_name == 'issues' && (github.event.action == 'opened' || github.event.action == 'edited' || github.event.action == 'milestoned' || github.event.action == 'closed')
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -32,10 +33,10 @@ jobs:
 
       # Step to run on issues event (opened, edited, milestoned)
       - name: Issue Handler
-        if: github.event_name == 'issues' && (github.event.action == 'opened' || github.event.action == 'edited' || github.event.action == 'milestoned' || github.event.action == 'closed')
         run: echo "a issue been ${{github.event.action}}"
 
   on-pull_request:
+    if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -43,6 +44,5 @@ jobs:
 
       # Step to run on pull_request event
       - name: Run on pull_request
-        if: github.event_name == 'pull_request'
         run: echo "a pull request been made by $GITHUB_ACTOR at $(date)"
     
