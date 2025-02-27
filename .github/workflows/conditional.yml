@@ -26,7 +26,7 @@ jobs:
 
       # Step to run on issues event (opened, edited, milestoned)
       - name: Run on issues
-        if: github.event_name == 'issues' && (github.event.action == 'opened' || github.event.action == 'edited' || github.event.action == 'milestoned')
+        if: github.event_name == 'issues' && (github.event.action == 'opened' || github.event.action == 'edited' || github.event.action == 'milestoned' || github.event.action == 'closed')
         run: echo "a issue been ${{github.event.action}}"
 
       # Step to run on pull_request event
