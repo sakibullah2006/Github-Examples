@@ -1,4 +1,4 @@
-name: "Webhook Event example"
+name: "Webhook Event Example"
 
 on:
   repository_dispatch:
@@ -11,10 +11,12 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v2
+
       - name: Run a script
         run: |
-          echo "Event of type:" + " $(GITHUB_EVENT_NAME)"
-          echo "done by $GITHUB_ACTOR"
-          echo "time $(data)"
+          echo "Event of type: $GITHUB_EVENT_NAME"
+          echo "Done by: $GITHUB_ACTOR"
+          echo "Time: $(date)"
+
       - name: Print client payload
         run: echo "${{ toJson(github.event.client_payload) }}"
