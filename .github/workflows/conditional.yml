@@ -22,7 +22,9 @@ jobs:
       # Step to run on push event
       - name: Run on push
         if: github.event_name == 'push'
-        run: echo "push event made by $GITHUB_ACTOR at $(date)"
+        run: |
+            echo "push event made by $GITHUB_ACTOR at $(date)"
+            echo cat "$(git log -n 1)"
 
       # Step to run on issues event (opened, edited, milestoned)
       - name: Run on issues
