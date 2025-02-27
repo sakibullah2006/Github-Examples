@@ -1,20 +1,40 @@
-name: "conditional workflow"
+name: Conditional Workflow
 
 on:
-    - push 
+  push:
+    branches:
+      - main
+  issues:
+    types: [opened, edited, milestoned]
+  pull_request:
+    branches:
+      - main
+#   release:
+#     types: [published]
 
 jobs:
-    hello-owner:
-        if: github.actor == github.repository_owner
-        runs-on: ubuntu-latest
-        steps:
-            -   name: "greet the owner"
-                run: echo hello there, OWNER
-    greet-user:
-        if: (!github.actor == github.repository_owner)
-        runs-on: ubuntu-latest
-        steps:
-            -  name: "greet user"
-               run: |
-                echo hey there, $GITHUB_ACTOR
-            
+  conditional-steps:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Step to run on push event
+      - name: Run on push
+        if: github.event_name == 'push'
+        run: echo "This step runs on push event"
+
+      # Step to run on issues event (opened, edited, milestoned)
+      - name: Run on issues
+        if: github.event_name == 'issues' && (github.event.action == 'opened' || github.event.action == 'edited' || github.event.action == 'milestoned')
+        run: echo "This step runs on issues event (opened, edited, milestoned)"
+
+      # Step to run on pull_request event
+      - name: Run on pull_request
+        if: github.event_name == 'pull_request'
+        run: echo "This step runs on pull_request event"
+
+      # Step to run on release event
+    #   - name: Run on release
+    #     if: github.event_name == 'release' && github.event.action == 'published'
+    #     run: echo "This step runs on release event (published)"
