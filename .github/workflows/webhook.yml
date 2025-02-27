@@ -16,3 +16,5 @@ jobs:
           echo "Event of type:" + " $(GITHUB_EVENT_NAME)"
           echo "done by $GITHUB_ACTOR"
           echo "time $(data)"
+      - name: Print client payload
+        run: echo "${{ toJson(github.event.client_payload) }}"
