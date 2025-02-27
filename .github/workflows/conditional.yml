@@ -11,10 +11,10 @@ jobs:
             -   name: "greet the owner"
                 run: echo hello there, OWNER
     greet-user:
+        if: (!github.actor == github.repository_owner)
         runs-on: ubuntu-latest
         steps:
             -  name: "greet user"
                run: |
                 echo hey there, $GITHUB_ACTOR
-                echo hey there, ${{github.repository_owner}}
             
