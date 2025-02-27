@@ -1,4 +1,4 @@
-name: schedule event 
+# name: schedule event 
 
 on:
   schedule:
