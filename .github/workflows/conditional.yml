@@ -1,0 +1,18 @@
+name: "conditional workflow"
+
+on:
+    - push 
+
+jobs:
+    hello-owner:
+        if: github.actor == github.repository_owner
+        runs-on: ubuntu-latest
+        steps:
+            -   name: "greet the owner"
+                run: echo hello there, OWNER
+    greet-user:
+        runs-on: ubuntu-latest
+        steps:
+            -  name: "greet user"
+               run: echo hey there, $GITHUB_ACTOR
+            
