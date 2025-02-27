@@ -9,11 +9,9 @@ on:
   pull_request:
     branches:
       - main
-#   release:
-#     types: [published]
-
+      
 jobs:
-  conditional-steps:
+  on-push:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -26,17 +24,25 @@ jobs:
             echo "push event made by $GITHUB_ACTOR at $(date)"
             echo cat "$(git log -n 1)"
 
+  on-issue:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
       # Step to run on issues event (opened, edited, milestoned)
-      - name: Run on issues
+      - name: Issue Handler
         if: github.event_name == 'issues' && (github.event.action == 'opened' || github.event.action == 'edited' || github.event.action == 'milestoned' || github.event.action == 'closed')
         run: echo "a issue been ${{github.event.action}}"
+
+  on-pull_request:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
 
       # Step to run on pull_request event
       - name: Run on pull_request
         if: github.event_name == 'pull_request'
         run: echo "a pull request been made by $GITHUB_ACTOR at $(date)"
-
-      # Step to run on release event
-    #   - name: Run on release
-    #     if: github.event_name == 'release' && github.event.action == 'published'
-    #     run: echo "This step runs on release event (published)"
+    
