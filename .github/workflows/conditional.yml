@@ -22,17 +22,17 @@ jobs:
       # Step to run on push event
       - name: Run on push
         if: github.event_name == 'push'
-        run: echo "This step runs on push event"
+        run: echo "push event made by $GITHUB_ACTOR at $(date)"
 
       # Step to run on issues event (opened, edited, milestoned)
       - name: Run on issues
         if: github.event_name == 'issues' && (github.event.action == 'opened' || github.event.action == 'edited' || github.event.action == 'milestoned')
-        run: echo "This step runs on issues event (opened, edited, milestoned)"
+        run: echo "a issue been ${{github.event.action}}"
 
       # Step to run on pull_request event
       - name: Run on pull_request
         if: github.event_name == 'pull_request'
-        run: echo "This step runs on pull_request event"
+        run: echo "a pull request been made by $GITHUB_ACTOR at $(date)"
 
       # Step to run on release event
     #   - name: Run on release
